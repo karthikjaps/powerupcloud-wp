@@ -43,6 +43,9 @@ Deploy the infrastructure
 terraform apply "terraform.plan"
 ```
 
+Keeping terraform plan in S3 , so that it can be used by multiple users
+
+
 Build and push our Wordpress container to `ECR`
 
 `ECS` agents should automatically pull our freshly pushed Wordpress image and start it. Wait a few minutes and point your web-browser to the `ELB` address:
