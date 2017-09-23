@@ -45,6 +45,13 @@ terraform apply "terraform.plan"
 
 Keeping terraform plan in S3 , so that it can be used by multiple users
 
+Creating the Jenkins Pipeline
+
+    Install required plugins (if not already installed)
+        Pipeline
+        Docker Pipeline Plugin
+        Amazon ECR Plugin
+
 
 Build and push our Wordpress container to `ECR`
 
