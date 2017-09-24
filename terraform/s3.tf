@@ -7,6 +7,6 @@ resource "aws_s3_bucket" "my-terraform-state" {
   }
   # Keep bucket when destroying
   lifecycle {
-    prevent_destroy = true
+    prevent_destroy = false
   }
 }
