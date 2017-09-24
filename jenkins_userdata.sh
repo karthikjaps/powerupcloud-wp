@@ -7,4 +7,4 @@ sudo mkdir -p $JENKINS_HOME
 sudo chmod -R 777 $JENKINS_HOME
 
 # Start Jenkins
-docker run -id --name jenkins -p 80:8080 -p 50000:50000 -v $JENKINS_HOME:/var/jenkins_home jenkins/jenkins:lts
+docker run -id --name jenkins -p 80:8080 -p 50000:50000 -v $JENKINS_HOME:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock -v $(which docker):/bin/docker jenkins/jenkins:lts
