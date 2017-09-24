@@ -1,4 +1,5 @@
 # Wordpress on ECS
+
 This project contains `terraform` and `docker` files to provision a Wordpress 
 service on top of AWS EC2 Container Service. It deploys by default in 
 region `us-east-1` and spans two availability zones. Its a fully automated 
