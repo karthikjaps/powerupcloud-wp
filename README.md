@@ -8,6 +8,7 @@ approach with Terraform, docker and the CI/CD concepts and tools using Jenkins .
 
 
 ## Instructions
+
 As we're using AWS `ECR` to store our docker containers and that our `ECS` cluster is pulling from it, we'll need to deploy our infrastructure first and then build and push our Wordpress container with `packer`.
 
 ## Prerequisite
