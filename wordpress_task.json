@@ -19,7 +19,7 @@
     ],
     "memory": 800,
     "cpu": 1024,
-    "image": "wordpress",
+    "image": "jamsheer/wordpress:latest",
     "name": "wordpress",
     "mountPoints": [
       {
