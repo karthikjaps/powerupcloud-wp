@@ -23,7 +23,6 @@ resource "aws_ecs_task_definition" "ecs" {
 data "template_file" "wordpress_task" {
   template = "${file("wordpress_task.json")}"
   vars {
-    repository_url = "${aws_ecr_repository.ecr.repository_url}"
     rds_username = "${var.rds_username}"
     rds_password = "${var.rds_password}"
     rds_db_name = "${var.rds_db_name}"

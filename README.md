@@ -36,7 +36,7 @@ terraform init -backend-config "bucket=terraform-state.wordpress"
 
 Create Plan 
 ```
-terraform plan -var-file=variables.tfvars -out terraform.plan
+terraform plan -var-file=variables.tfvars -out terraform.plan terraform
 ```
 
 Deploy the infrastructure 
