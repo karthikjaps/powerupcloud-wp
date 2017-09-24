@@ -12,6 +12,12 @@ resource "aws_security_group" "ecs" {
     protocol  = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+  ingress {
+    from_port = 22
+    to_port = 22
+    protocol = "tcp"
+    cidr_blocks = ["${var.local_ip}/32"]
+  }
 }
 
 # Security Group for EC2 egress port 80 HTTP,443 HTTPS,2049 EFS,3306 MySQL

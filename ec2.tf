@@ -10,6 +10,9 @@ resource "aws_launch_configuration" "ec2" {
 
 # We need this 'depend_on' line otherwise we may not be able to reach internet at first terraform apply command
 resource "aws_autoscaling_group" "ec2" {
+  lifecycle {
+     create_before_destroy = "True"
+  }
   depends_on           = ["aws_nat_gateway.natgw_zoneA", "aws_nat_gateway.natgw_zoneB"]
   name                 = "ecs-autoscale"
   vpc_zone_identifier  = ["${aws_subnet.private_subnet_zoneA.id}", "${aws_subnet.private_subnet_zoneB.id}"]
