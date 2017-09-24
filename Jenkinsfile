@@ -6,7 +6,9 @@ node {
   def image = docker.build('jamsheer/wordpress:latest', '.')
 
   stage 'Docker Push'
-  docker.withRegistry('https://index.docker.io/v1/', 'docker-credentials') {
-    image.push()
-  }
+  withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'docker-credentials',
+                    usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+      sh("docker login -u $USERNAME -p $PASSWORD")
+      image.push()
+    }
 }
