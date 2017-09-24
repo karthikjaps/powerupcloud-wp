@@ -10,7 +10,3 @@ resource "aws_s3_bucket" "my-terraform-state" {
     prevent_destroy = true
   }
 }
-
-output "s3_bukcet_arn" {
-  value = "${aws_s3_bucket.my-terraform-state.arn}"
-}
