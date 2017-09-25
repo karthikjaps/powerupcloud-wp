@@ -112,9 +112,8 @@ us-east-1
 +--------------------------------------------------------------+
 ```
 # To improve
-For production deployments, the following should be implemented:
- - extract logs from Wordpress containers (Can use filebeat, Logstash, 
- Kibana and ElasticSearch) 
+ - Lot of things to optimize in code base
+ - implement log monitoring (Can use filebeat, Logstash, Kibana and ElasticSearch) 
  - increase instance capacity  (t2.micro currently) 
  - increase DB size, monitor remaining space and make backups (5GB at the moment)
  - set up CDN to serve static content (Cloudfront)
