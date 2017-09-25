@@ -1,4 +1,4 @@
-# Wordpress on ECS
+# Wordpress on EC2
 
 In a single VPC, deploy a wordpress application and web infrastructure which is highly available, elastically scalable and easily recoverable:
 
