@@ -5,7 +5,6 @@ config="[default]\nregion = ${region}"
 sudo echo -e "$config" > /opt/config
 credentials="[default]\naws_access_key_id = ${aws_access_key}\naws_secret_access_key = ${aws_secret_key}"
 sudo echo -e "$credentials" > /opt/credentials
-sudo echo -e "Hi" > /opt/test
 # Create and set correct permissions for Jenkins mount directory
 sudo mkdir -p $JENKINS_HOME
 sudo chmod -R 777 $JENKINS_HOME
