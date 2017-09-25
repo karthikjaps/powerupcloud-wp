@@ -1,16 +1,16 @@
 #!/bin/bash
 
 JENKINS_HOME=/opt/jenkins_home
-if [ ! -e ~/.aws/config  ]; then
+if [ ! -e /opt/jenkins_home/aws/config  ]; then
     config="[default]
             region = ${region}"
-    echo "$config" | tee ~/.aws/config
+    echo "$config" | tee /opt/jenkins_home/aws/config
 fi
-if [ ! -e ~/.aws/credentials  ]; then
+if [ ! -e /opt/jenkins_home/aws/credentials  ]; then
     credentials="[default]
         aws_access_key_id = ${aws_access_key}
         aws_secret_access_key = ${aws_secret_key}"
-    echo "$credentials" | tee ~/.aws/credentials
+    echo "$credentials" | tee /opt/jenkins_home/aws/credentials
 fi
 # Create and set correct permissions for Jenkins mount directory
 sudo mkdir -p $JENKINS_HOME
