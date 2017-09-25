@@ -1,68 +1,67 @@
 # Wordpress on ECS
 
-This project contains `terraform` and `docker` files to provision a Wordpress 
-service on top of AWS EC2 Container Service. It deploys by default in 
-region `us-east-1` and spans two availability zones. Its a fully automated 
-deployment of wordpress app to AWS Cloud using Infrastructure as Code 
-approach with Terraform, docker and the CI/CD concepts and tools using Jenkins .
+In a single VPC, deploy a wordpress application and web infrastructure which is highly available, elastically scalable and easily recoverable:
 
+This project contains `terraform` files under terraform directory and `docker` files to provision a Wordpress service on top of AWS EC2 Container Service. It deploys by default in region `us-east-1` and spans two availability zones. Its a fully automated deployment of wordpress app to AWS Cloud using Infrastructure as Code approach with Terraform, docker and the CI/CD concepts and tools using Jenkins and CodeDeploy .
 
-
-## Instructions
-
-As we're using AWS `ECR` to store our docker containers and that our `ECS` cluster is pulling from it, we'll need to deploy our infrastructure first and then build and push our Wordpress container with `packer`.
 
 ## Prerequisite
+* You are already setup with AWS and are ready with IAM and policies .
+* AWS SDK Install [awscli](http://docs.aws.amazon.com/cli/latest/userguide/installing.html)
+* [Configure awscli](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html) with key and secret (`aws configure`)
+* Install [Terraform](https://www.terraform.io/intro/getting-started/install.html)
+* AWS Keypair to connect to EC2 Instances 
+* tfvars file which contain all required variables 
 
-1. AWS SDK Install [awscli](http://docs.aws.amazon.com/cli/latest/userguide/installing.html)
-2. [Configure awscli](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html) with key and secret (`aws configure`)
-3. Install [Terraform](https://www.terraform.io/intro/getting-started/install.html)
-4. Create a AWS Keypair to connect to EC2 Instances 
- 
-Create a tfvars file which contain all variables 
+## Terraform to setup AWS
 
-```
-aws_access_key=your_access_key
-aws_secret_key=your_secret_access_key
-```
+In a single VPC, deploy a wordpress application and web infrastructure which is highly available, elastically scalable and easily recoverable , Terraform will create all required resources in AWS to run wordpress by using terraform configuration files under terraform folder, additionally it will create a jenkins as well pulled from [Jenkins](https://hub.docker.com/r/jamsheer/awscli-jenkins/), I am keeping terraform state in S3 , so that it can be used by multiple users
 
-Initialize terraform using
- 
+### Initialize
 ```
 terraform init -backend-config "bucket=terraform-state.wordpress" 
 -backend-config "region=us-east-1" -backend-config "key=terraform.tfstate" 
 -backend-config "access_key=<>" -backend-config "secret_key=<>"
 ```
 
-Create Plan 
+### Create Plan 
+
 ```
 terraform plan -var-file=variables.tfvars -out terraform.plan terraform
 ```
 
-Deploy the infrastructure 
+### Deploy the infrastructure 
 
 ```
 terraform apply "terraform.plan"
 ```
 
-Keeping terraform plan in S3 , so that it can be used by multiple users
+## Implement the following CI/CD pipeline(s) in a Jenkins server 
 
-Creating the Jenkins Pipeline
+A Jenkins pipeline to automatically deploy code changes to your wordpress application in #1 to the infrastructure in the VPC from a GitHub repo. Use CodeDeploy as the last step in your pipeline. The pipeline will result in a Blue-Green deployment of the WordPress application.
 
-    Install required plugins (if not already installed)
+
+### Install required plugins (if not already installed)
         Pipeline
         Docker Pipeline Plugin
-        Amazon ECR Plugin
+        
+### Setup credentials in Jenkin
+
+* Add docker hub credentials ID must be `docker-credentials` as the pipeline will be getting secret credentials using this id
+* Add github credentials(Get Personal access tokens Generate new token from github and add to jenkins secret text credentails)
+
+### Setup GitHub to get Jenkins Push notifications .
+
+* In Services / Manage Jenkins (GitHub plugin) in Github
+* Update Jenkins Hook Url" is the URL of your Jenkins server's webhook endpoint. For
+example: http://ci.jenkins-ci.org/github-webhook/
+
+### Pipeline [Wordpress](https://github.com/jamsheer/wordpress-ecs/blob/jamsheer-patch-1/Jenkinsfile).
+
+The Jenkinsfile is a pipe line to Build and Push Docker image to [Wordpress](https://hub.docker.com/r/jamsheer/wordpress/).
+and later deploy using aws codedeploy as bluegreen deployment.
 
 
-Build and push our Wordpress container to `ECR`
-
-`ECS` agents should automatically pull our freshly pushed Wordpress image and start it. Wait a few minutes and point your web-browser to the `ELB` address:
-
-```
-cd ..
-terraform output elb_dns
-```
 
 ## Technical 
 We want our wordpress to 
@@ -70,7 +69,7 @@ We want our wordpress to
  - be highly available
  - be secure
 
-#### Making the container stateless
+#### Making the wordpress container stateless
 To achieve our goal of easy scalability we want to make our Wordpress container stateless, meaning that no particular data are attached to the host the container is running on. 
 Wordpress text article content is stored on an external database so we're good on this side. We'll use a `RDS` mysql instance for that.
 Wordpress static content is stored at path `/var/www/html/wp-content` of the container. We'll store this on some storage space shared between hosts and mounted in the container. We'll use the `EFS` service for that (AWS nfs as a service).
@@ -113,12 +112,9 @@ us-east-1
 +--------------------------------------------------------------+
 ```
 # To improve
-For production deployments, the following should be implemented:
- - extract logs from Wordpress containers (Can use filebeat, Logstash, 
- Kibana and ElasticSearch) 
- - increase instance capacity  (t2.micro currently) 
- - increase DB size, monitor remaining space and make backups (5GB at the moment)
+ - Lot of things to optimize in code base
+ - implement log monitoring (Can use filebeat, Logstash, Kibana and ElasticSearch) 
  - set up CDN to serve static content (Cloudfront)
- - set up Cloudwatch alarms
  - customize Wordpress image for performance (use nginx, php fpm, tweak perf parameters...)
  - customize Jenkins Image by adding Necessary Plugins
+ - etc ..
