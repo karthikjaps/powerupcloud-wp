@@ -17,46 +17,46 @@ This project contains `terraform` files under terraform directory and `docker` f
 
 In a single VPC, deploy a wordpress application and web infrastructure which is highly available, elastically scalable and easily recoverable , Terraform will create all required resources in AWS to run wordpress by using terraform configuration files under terraform folder, additionally it will create a jenkins as well pulled from [Jenkins](https://hub.docker.com/r/jamsheer/awscli-jenkins/), I am keeping terraform state in S3 , so that it can be used by multiple users
 
-### Initialize
+#### Initialize
 ```
 terraform init -backend-config "bucket=terraform-state.wordpress" 
 -backend-config "region=us-east-1" -backend-config "key=terraform.tfstate" 
 -backend-config "access_key=<>" -backend-config "secret_key=<>"
 ```
 
-### Create Plan 
+#### Create Plan 
 
 ```
 terraform plan -var-file=variables.tfvars -out terraform.plan terraform
 ```
 
-### Deploy the infrastructure 
+#### Deploy the infrastructure 
 
 ```
 terraform apply "terraform.plan"
 ```
 
-## Implement the following CI/CD pipeline(s) in a Jenkins server 
+## CI/CD pipeline(s) - Jenkins server 
 
 A Jenkins pipeline to automatically deploy code changes to your wordpress application in #1 to the infrastructure in the VPC from a GitHub repo. Use CodeDeploy as the last step in your pipeline. The pipeline will result in a Blue-Green deployment of the WordPress application.
 
 
-### Install required plugins (if not already installed)
+#### Install required plugins (if not already installed)
         Pipeline
         Docker Pipeline Plugin
         
-### Setup credentials in Jenkin
+#### Setup credentials in Jenkin
 
 * Add docker hub credentials ID must be `docker-credentials` as the pipeline will be getting secret credentials using this id
 * Add github credentials(Get Personal access tokens Generate new token from github and add to jenkins secret text credentails)
 
-### Setup GitHub to get Jenkins Push notifications .
+#### Setup GitHub to get Jenkins Push notifications .
 
 * In Services / Manage Jenkins (GitHub plugin) in Github
 * Update Jenkins Hook Url" is the URL of your Jenkins server's webhook endpoint. For
 example: http://ci.jenkins-ci.org/github-webhook/
 
-### Pipeline [Wordpress](https://github.com/jamsheer/wordpress-ecs/blob/jamsheer-patch-1/Jenkinsfile).
+#### Pipeline [Wordpress](https://github.com/jamsheer/wordpress-ecs/blob/jamsheer-patch-1/Jenkinsfile).
 
 The Jenkinsfile is a pipe line to Build and Push Docker image to [Wordpress](https://hub.docker.com/r/jamsheer/wordpress/).
 and later deploy using aws codedeploy as bluegreen deployment.
