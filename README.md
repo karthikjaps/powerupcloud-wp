@@ -122,6 +122,7 @@ us-east-1
 ```
 # To improve
  - Lot of things to optimize in code base
+ - Move CodeDeploy as well to Terraform
  - implement log monitoring (Can use filebeat, Logstash, Kibana and ElasticSearch) 
  - set up CDN to serve static content (Cloudfront)
  - customize Wordpress image for performance (use nginx, php fpm, tweak perf parameters...)
