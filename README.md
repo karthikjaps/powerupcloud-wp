@@ -114,9 +114,7 @@ us-east-1
 # To improve
  - Lot of things to optimize in code base
  - implement log monitoring (Can use filebeat, Logstash, Kibana and ElasticSearch) 
- - increase instance capacity  (t2.micro currently) 
- - increase DB size, monitor remaining space and make backups (5GB at the moment)
  - set up CDN to serve static content (Cloudfront)
- - set up Cloudwatch alarms
  - customize Wordpress image for performance (use nginx, php fpm, tweak perf parameters...)
  - customize Jenkins Image by adding Necessary Plugins
+ - etc ..
