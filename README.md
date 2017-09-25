@@ -44,11 +44,22 @@ A Jenkins pipeline to automatically deploy code changes to your wordpress applic
 ### Install required plugins (if not already installed)
         Pipeline
         Docker Pipeline Plugin
+        
+### Setup credentials in Jenkin
 
-#### Pipeline [Wordpress](https://github.com/jamsheer/wordpress-ecs/blob/jamsheer-patch-1/Jenkinsfile).
+* Add docker hub credentials 
+* Add github credentials(Get Personal access tokens Generate new token from github and add to jenkins secret text credentails)
+
+### Setup GitHub to get Jenkins Push notifications .
+
+* In Services / Manage Jenkins (GitHub plugin) in Github
+* Update Jenkins Hook Url" is the URL of your Jenkins server's webhook endpoint. For
+example: http://ci.jenkins-ci.org/github-webhook/
+
+### Pipeline [Wordpress](https://github.com/jamsheer/wordpress-ecs/blob/jamsheer-patch-1/Jenkinsfile).
 
 The Jenkinsfile is a pipe line to Build and Push Docker image to [Wordpress](https://hub.docker.com/r/jamsheer/wordpress/).
-and later deploy using codedeploy using bluegreen deployment.
+and later deploy using aws codedeploy as bluegreen deployment.
 
 
 
