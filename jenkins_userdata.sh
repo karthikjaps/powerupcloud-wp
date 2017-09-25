@@ -2,19 +2,15 @@
 
 JENKINS_HOME=/opt/jenkins_home
 if [ ! -e ~/.aws/config  ]; then
-    # NOTE: The "Indexes" option is disabled in the php:apache base image
-    cat > ~/.aws/config <<-'EOF'
-        [default]
-        region = ${region}
-    EOF
+    config="[default]
+            region = ${region}"
+    echo "$config" | tee ~/.aws/config
 fi
 if [ ! -e ~/.aws/credentials  ]; then
-    # NOTE: The "Indexes" option is disabled in the php:apache base image
-    cat > ~/.aws/credentials <<-'EOF'
-        [default]
+    credentials="[default]
         aws_access_key_id = ${aws_access_key}
-        aws_secret_access_key = ${aws_secret_key}
-    EOF
+        aws_secret_access_key = ${aws_secret_key}"
+    echo "$credentials" | tee ~/.aws/credentials
 fi
 # Create and set correct permissions for Jenkins mount directory
 sudo mkdir -p $JENKINS_HOME
