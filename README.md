@@ -2,7 +2,7 @@
 
 In a single VPC, deploy a wordpress application and web infrastructure which is highly available, elastically scalable and easily recoverable:
 
-This project contains `terraform` files under terraform directory and `docker` files to provision a Wordpress service on top of AWS EC2 Container Service. It deploys by default in region `us-east-1` and spans two availability zones. Its a fully automated deployment of wordpress app to AWS Cloud using Infrastructure as Code approach with Terraform, docker and the CI/CD concepts and tools using Jenkins and CodeDeploy .
+This project contains `terraform` files under terraform directory and `docker` files to provision a Wordpress service on top of AWS EC2. It deploys by default in region `us-east-1` and spans two availability zones. Its a fully automated deployment of wordpress app to AWS Cloud using Infrastructure as Code approach with Terraform, docker and the CI/CD concepts and tools using Jenkins and CodeDeploy .
 
 
 ## Prerequisite
@@ -108,7 +108,7 @@ us-east-1
 |           +----------------+ || +----------------+           |
 |           |                | || |                |           |
 |           | +------------+ | || | +------------+ |           |
-|           | |ECS instance| | || | |ECS instance| |           |
+|           | |EC2 instance| | || | |EC2 instance| |           |
 |           | |            +^------^+            | |           |
 |           | +-----^----^-+ |    | +-----^-----^+ |           |
 |private    |       |    |   |    |       |     |  | private   |
@@ -121,8 +121,7 @@ us-east-1
 +--------------------------------------------------------------+
 ```
 # To improve
- - Lot of things to optimize in code base
- - Move CodeDeploy as well to Terraform
+ - Optimize code
  - implement log monitoring (Can use filebeat, Logstash, Kibana and ElasticSearch) 
  - set up CDN to serve static content (Cloudfront)
  - customize Wordpress image for performance (use nginx, php fpm, tweak perf parameters...)
