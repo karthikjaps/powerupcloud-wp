@@ -51,6 +51,14 @@ A Jenkins pipeline to automatically deploy code changes to your wordpress applic
 * Add docker hub credentials ID must be `docker-credentials` as the pipeline will be getting secret credentials using this id
 * Add github credentials(Get Personal access tokens Generate new token from github and add to jenkins secret text credentails)[detail](https://gist.github.com/jamsheer/813473db1082ad5ffd2e25d048eb6270#file-git-jenkins-md)
 
+#### Setup CodeDeploy to deploy wordpress .
+
+* Create a codedeploy application named `wordpress`
+* Create deployment group `Wordpress_Group`
+* Select deployment type `Blue/green deployment` 
+* Under Environment configuration, Automatically copy Auto Scaling group and select the autoscalegroup created by terraform
+* Under Load balancer, select loadedbalancer createed by terraform
+
 #### Setup GitHub to get Jenkins Push notifications .
 
 * In Services / Manage Jenkins (GitHub plugin) in Github
