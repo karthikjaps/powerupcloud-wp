@@ -25,13 +25,3 @@ os: linux
 files:
   - source: /
     destination: /opt/wordpress
-# For deployments to Amazon Linux, Ubuntu Server, or RHEL instances,
-#   you can specify a "permissions"
-#   section here that describes special permissions to apply to the files
-#   in the "files" section as they are being copied over to
-#   the instance.
-#   For more information, see the documentation.
-# If you are deploying to Windows Server instances,
-#   then remove the
-#   "permissions" section altogether. A blank or incomplete "permissions"
-#   section may cause associated deployments to fail.
