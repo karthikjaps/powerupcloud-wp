@@ -1,51 +1,43 @@
 # Wordpress on ECS
 
-This project contains `terraform` and `docker` files to provision a Wordpress 
-service on top of AWS EC2 Container Service. It deploys by default in 
-region `us-east-1` and spans two availability zones. Its a fully automated 
-deployment of wordpress app to AWS Cloud using Infrastructure as Code 
-approach with Terraform, docker and the CI/CD concepts and tools using Jenkins .
+In a single VPC, deploy a wordpress application and web infrastructure which is highly available, elastically scalable and easily recoverable:
 
+This project contains `terraform` files under terraform directory and `docker` files to provision a Wordpress service on top of AWS EC2 Container Service. It deploys by default in region `us-east-1` and spans two availability zones. Its a fully automated deployment of wordpress app to AWS Cloud using Infrastructure as Code approach with Terraform, docker and the CI/CD concepts and tools using Jenkins and CodeDeploy .
 
-
-## Instructions
-
-As we're using AWS `ECR` to store our docker containers and that our `ECS` cluster is pulling from it, we'll need to deploy our infrastructure first and then build and push our Wordpress container with `packer`.
 
 ## Prerequisite
+* You are already setup with AWS and are ready with IAM and policies .
+* AWS SDK Install [awscli](http://docs.aws.amazon.com/cli/latest/userguide/installing.html)
+* [Configure awscli](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html) with key and secret (`aws configure`)
+* Install [Terraform](https://www.terraform.io/intro/getting-started/install.html)
+* AWS Keypair to connect to EC2 Instances 
+* tfvars file which contain all required variables 
 
-1. AWS SDK Install [awscli](http://docs.aws.amazon.com/cli/latest/userguide/installing.html)
-2. [Configure awscli](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html) with key and secret (`aws configure`)
-3. Install [Terraform](https://www.terraform.io/intro/getting-started/install.html)
-4. Create a AWS Keypair to connect to EC2 Instances 
- 
-Create a tfvars file which contain all variables 
+## Terraform to setup AWS
 
-```
-aws_access_key=your_access_key
-aws_secret_key=your_secret_access_key
-```
+I am keeping terraform plan in S3 , so that it can be used by multiple users
 
-Initialize terraform using
- 
+### Initialize
 ```
 terraform init -backend-config "bucket=terraform-state.wordpress" 
 -backend-config "region=us-east-1" -backend-config "key=terraform.tfstate" 
 -backend-config "access_key=<>" -backend-config "secret_key=<>"
 ```
 
-Create Plan 
+### Create Plan 
+
 ```
 terraform plan -var-file=variables.tfvars -out terraform.plan terraform
 ```
 
-Deploy the infrastructure 
+### Deploy the infrastructure 
 
 ```
 terraform apply "terraform.plan"
 ```
 
-Keeping terraform plan in S3 , so that it can be used by multiple users
+
+
 
 Creating the Jenkins Pipeline
 
