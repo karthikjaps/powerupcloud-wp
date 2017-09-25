@@ -47,7 +47,7 @@ A Jenkins pipeline to automatically deploy code changes to your wordpress applic
         
 ### Setup credentials in Jenkin
 
-* Add docker hub credentials 
+* Add docker hub credentials ID must be `docker-credentials` as the pipeline will be getting secret credentials using this id
 * Add github credentials(Get Personal access tokens Generate new token from github and add to jenkins secret text credentails)
 
 ### Setup GitHub to get Jenkins Push notifications .
