@@ -14,7 +14,7 @@ node {
     }
 
   stage 'Code Deploy'
-  shortCommit = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
+  shortCommit = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%H'").trim()
   repository = giturl
   sh("aws deploy create-deployment --application-name wordpress --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name Wordpress_Group --description 'My GitHub deployment demo' --github-location repository=$repository,commitId=$shortCommit")
 }

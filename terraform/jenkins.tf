@@ -2,6 +2,11 @@
 
 data "template_file" "jenkins_userdata" {
   template = "${file("jenkins_userdata.sh")}"
+  vars {
+    region = "${var.region}"
+    aws_access_key = "${var.aws_access_key}"
+    aws_secret_key = "${var.aws_secret_key}"
+  }
 }
 
 resource "aws_instance" "jenkins" {
