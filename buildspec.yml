@@ -17,6 +17,7 @@ phases:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
+      - eval $(aws ecr get-login --no-include-email | sed ‘s|https://||’)
       - docker push 465878251836.dkr.ecr.us-east-1.amazonaws.com/powerup:latest
 
 
