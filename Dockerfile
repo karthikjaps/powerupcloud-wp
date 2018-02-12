@@ -27,14 +27,16 @@ RUN { \
 
 RUN a2enmod rewrite expires
 
-VOLUME /var/www/html
 
 ENV WORDPRESS_VERSION 4.8.2
-COPY wordpress /usr/src/wordpress
-RUN set -ex; \
-	chown -R www-data:www-data /usr/src/wordpress
+COPY wordpress /var/www/html
+COPY wp-config.php /var/www/html/wordpress
 
-COPY docker-entrypoint.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
-ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
+RUN set -ex; \
+	chown -R www-data:www-data /var/www/html
+        chown -R www-data:www-data /var/www/html/wordpress
+
+
+
+
 CMD ["apache2-foreground"]
