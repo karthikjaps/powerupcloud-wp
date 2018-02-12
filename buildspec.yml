@@ -9,7 +9,7 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...          
-      - docker build -t powerup . .
+      - docker build -t powerup .
       - docker tag powerup:latest 465878251836.dkr.ecr.us-east-1.amazonaws.com/powerup:latest
 
       
