@@ -34,7 +34,8 @@ COPY wp-config.php /var/www/html/wordpress
 
 RUN set -ex; \
 	chown -R www-data:www-data /var/www/html
-        chown -R www-data:www-data /var/www/html/wordpress
+
+RUN  chown -R www-data:www-data /var/www/html/wordpress
 
 
 
