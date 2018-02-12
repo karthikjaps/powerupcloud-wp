@@ -3,7 +3,7 @@
     {
       "name": "wordpress",
      
-      "image": "wordpress",
+      "image": "arn:aws:ecr:us-east-1:465878251836:repository/powerup:latest",
       "essential": true,
       "portMappings": [
         {
@@ -13,7 +13,7 @@
       ],
       "memory": 500,
       "cpu": 10
-    }
+    },
   ],
   [
     {
