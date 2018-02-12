@@ -4,7 +4,7 @@ phases:
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
-      - (aws ecr get-login  --region us-east-1)
+      - eval $(aws ecr get-login --region us-east-1)
   build:
     commands:
       - echo Build started on `date`
@@ -17,7 +17,6 @@ phases:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - eval $(aws ecr get-login --no-include-email | sed ‘s|https://||’)
       - docker push 465878251836.dkr.ecr.us-east-1.amazonaws.com/powerup:latest
 
 
