@@ -1,14 +1,22 @@
 version: 0.2
 
 phases:
-  install:
-    commands:
-      - nohup /usr/local/bin/dockerd --host=unix:///var/run/docker.sock --host=tcp://0.0.0.0:2375 --storage-driver=overlay&
-      - timeout -t 15 sh -c "until docker info; do echo .; sleep 1; done"
   pre_build:
     commands:
-      - docker build -t wordpress .
+      - echo Logging in to Amazon ECR...
+      - $(aws ecr get-login --no-include-email --region us-east-1)
   build:
     commands:
-      - docker images
-     
+      - echo Build started on `date`
+      - echo Building the Docker image...          
+      - docker build -t powerup . .
+      - docker tag powerup:latest 465878251836.dkr.ecr.us-east-1.amazonaws.com/powerup:latest
+
+      
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker push 465878251836.dkr.ecr.us-east-1.amazonaws.com/powerup:latest
+
+
