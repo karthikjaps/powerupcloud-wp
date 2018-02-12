@@ -1,0 +1,37 @@
+{
+  "containerDefinitions": [
+    {
+      "name": "wordpress",
+     
+      "image": "wordpress",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "hostPort": 80
+        }
+      ],
+      "memory": 500,
+      "cpu": 10
+    }
+  ],
+  [
+    {
+      "memory": 32,
+      "essential": true,
+      "entryPoint": [
+        "ping"
+      ],
+      "name": "alpine_ping",
+      "readonlyRootFilesystem": true,
+      "image": "alpine:3.4",
+      "command": [
+        "-c",
+        "4",
+        "google.com"
+      ],
+      "cpu": 16
+    }
+  ],
+  "family": "hello_world"
+}
