@@ -1,0 +1,19 @@
+{
+  "containerDefinitions": [
+    {
+      "name": "wordpress",
+     
+      "image": "arn:aws:ecr:us-east-1:465878251836:repository/powerup",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "hostPort": 80
+        }
+      ],
+      "memory": 500,
+      "cpu": 10
+    }
+  ],
+  "family": "hello_world"
+}
