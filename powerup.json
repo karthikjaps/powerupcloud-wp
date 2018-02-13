@@ -1,55 +1,38 @@
 {
-  "executionRoleArn": null,
-  "containerDefinitions": [
-    {
-      "dnsSearchDomains": null,
-      "logConfiguration": null,
-      "entryPoint": null,
-      "portMappings": [
+    "requiresCompatibilities": [
+        "EC2"
+    ],
+    "containerDefinitions": [
         {
-          "hostPort": 80,
-          "protocol": "tcp",
-          "containerPort": 80
+            "name": "powerup_task",
+            "image": "arn:aws:ecr:us-east-1:465878251836:repository/powerup",
+            "memory": "512",
+            "essential": true,
+            "portMappings": [
+                {
+                    "hostPort": "80",
+                    "containerPort": "80",
+                    "protocol": "tcp"
+                }
+            ],
+            "environment": null,
+            "mountPoints": null,
+            "volumesFrom": null,
+            "hostname": null,
+            "user": null,
+            "workingDirectory": null,
+            "extraHosts": null,
+            "logConfiguration": null,
+            "ulimits": null,
+            "dockerLabels": null
         }
-      ],
-      "command": null,
-      "linuxParameters": null,
-      "cpu": 10,
-      "environment": [],
-      "ulimits": null,
-      "dnsServers": null,
-      "mountPoints": [],
-      "workingDirectory": null,
-      "dockerSecurityOptions": null,
-      "memory": 500,
-      "memoryReservation": null,
-      "volumesFrom": [],
-      "image": "wordpress",
-      "disableNetworking": null,
-      "essential": true,
-      "links": [],
-      "hostname": null,
-      "extraHosts": null,
-      "user": null,
-      "readonlyRootFilesystem": null,
-      "dockerLabels": null,
-      "privileged": null,
-      "name": "wordpress"
-    }
-  ],
-  "placementConstraints": [],
-  "memory": null,
-  "taskRoleArn": null,
-  "compatibilities": [
-    "EC2"
-  ],
-  "taskDefinitionArn": "arn:aws:ecs:us-east-1:465878251836:task-definition/hello_world:1",
-  "family": "hello_world",
-  "requiresAttributes": [],
-  "requiresCompatibilities": [],
-  "networkMode": null,
-  "cpu": null,
-  "revision": 1,
-  "status": "ACTIVE",
-  "volumes": []
+    ],
+    "volumes": [],
+    "networkMode": null,
+    "memory": null,
+    "cpu": null,
+    "placementConstraints": [],
+    "family": "powerup_task",
+    "taskRoleArn": "arn:aws:iam::465878251836:role/ecsTaskExecutionRole",
+    "executionRoleArn": "arn:aws:iam::465878251836:role/ecsTaskExecutionRole"
 }
